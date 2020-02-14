@@ -11,7 +11,12 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text("|山川异域  风月同天|"),
       ),
-      body: SelfDefImageLocalWidget(),
+      body: RoundCornerImageWidget(),
+//      body: HomeContent(),
+//      body: RoundCornerWidget(),
+//      body: ClipOvalWidget(),
+//      body: circleAvatarWidget(),
+//      body: SelfDefImageLocalWidget(),
 //      body: SelfDefImageNetWidget(),
 //      body: SelfDefButtonWidget(),
 //      body: ButtonWidget(),
@@ -20,11 +25,67 @@ class MyApp extends StatelessWidget {
 //      body: AppContainer(),
     ));
   }
-
 }
 
 
-class SelfDefImageLocalWidget extends StatelessWidget{
+///圆角图片的设置---使用cliprect实现
+///注意:这里是使用的ClipRRect √ ----- 而不是ClipRect ×
+class RoundCornerImageWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.network(
+          "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",
+          width: 200,
+          height: 200,
+        ),
+      ),
+    );
+  }
+}
+
+///圆角头像的方案2---使用clipoval
+class ClipOvalWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ClipOval(
+        child: Image.network(
+          "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",
+          width: 200, //通过设置图片的大小,就可以改变圆角图片的大小
+          height: 200,
+        ),
+      ),
+    );
+  }
+}
+
+///圆角头像-常见的有两种方式
+///1.使用CircleAvatar
+///2.使用clipoval---这种方式更为常见
+class circleAvatarWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircleAvatar(
+//        backgroundColor: Colors.red,
+        backgroundImage: NetworkImage(
+          "https://tva1.sinaimg.cn/large/006y8mN6gy1g7aa03bmfpj3069069mx8.jpg",
+        ),
+        radius: 140, //设置radius就可以间接的设置图片的大小
+        //添加一个图片---使用child
+        child: Text(
+          "令狐冲",
+          style: TextStyle(color: Colors.yellow, fontSize: 20),
+        ),
+      ),
+    );
+  }
+}
+
+class SelfDefImageLocalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -33,23 +94,21 @@ class SelfDefImageLocalWidget extends StatelessWidget{
         height: 400,
         color: Colors.purple,
         //给定网络图片
-        child: Image.asset("assets/image/tiger.jpg",
+        child: Image.asset(
+          "assets/image/tiger.jpg",
           alignment: Alignment.center,
           //是否在y轴上进行重复性的平铺图片,使其占满真个的container
           //repeat: ImageRepeat.repeatY,
           //fit: BoxFit.fill,//BoxFit.fill是一种以拉伸的方式占据整个屏幕的方式
-          fit: BoxFit.cover,//等比例的缩放,直到铺满整个的container
+          fit: BoxFit.cover, //等比例的缩放,直到铺满整个的container
         ),
-
       ),
     );
   }
 }
 
-
-
 ///我们自定义使用图片(网络图片)的自定义的组件
-class SelfDefImageNetWidget extends StatelessWidget{
+class SelfDefImageNetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -58,21 +117,18 @@ class SelfDefImageNetWidget extends StatelessWidget{
         height: 300,
         color: Colors.purple,
         //给定网络图片
-        child: Image.network("http://img0.dili360.com/ga/M01/48/3C/wKgBy1kj49qAMVd7ADKmuZ9jug8377.tub.jpg",
+        child: Image.network(
+          "http://img0.dili360.com/ga/M01/48/3C/wKgBy1kj49qAMVd7ADKmuZ9jug8377.tub.jpg",
           alignment: Alignment.center,
           //是否在y轴上进行重复性的平铺图片,使其占满真个的container
           //repeat: ImageRepeat.repeatY,
           //fit: BoxFit.fill,//BoxFit.fill是一种以拉伸的方式占据整个屏幕的方式
-          fit: BoxFit.cover,//等比例的缩放,直到铺满整个的container
+          fit: BoxFit.cover, //等比例的缩放,直到铺满整个的container
         ),
-
       ),
     );
   }
 }
-
-
-
 
 ///下面是我们自定义的button组件
 class SelfDefButtonWidget extends StatelessWidget {
