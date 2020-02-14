@@ -11,14 +11,79 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text("风月同天"),
       ),
-      body: textRichWidget(),
+      body: SelfDefButtonWidget(),
+//      body: ButtonWidget(),
+//      body: textRichWidget(),
 //      body: textWidget(),
 //      body: AppContainer(),
     ));
   }
 }
 
-//我们使用另外一个文本组件text.rich
+///下面是我们自定义的button组件
+class SelfDefButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: RaisedButton(
+        onPressed: () => print("点击自定义button"),
+        color: Colors.green,
+        child: Row(
+          children: <Widget>[
+            Icon(
+              Icons.people,
+              size: 30,
+              color: Colors.red,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              "天地异域",
+              style: TextStyle(color: Colors.yellow, fontSize: 40),
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+        ),
+        //给button添加圆角
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      ),
+    );
+  }
+}
+
+///自定义组件-包含常见的几种button小部件
+class ButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          //我们将几种常见的button进行一一的列出
+          RaisedButton(
+            child: Text("RaisedButton"),
+            onPressed: () => print("我是RaisedButton按钮"),
+          ),
+          FlatButton(
+            child: Text("FlatButton"),
+            onPressed: () => print("我是FlatButton按钮"),
+          ),
+          OutlineButton(
+            child: Text("OutlineButton"),
+            onPressed: () => print("我是OutlineButton按钮"),
+          ),
+          FloatingActionButton(
+            child: Text("FloatingActionButton"),
+            onPressed: () => print("我是FloatingActionButton按钮"),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+///我们使用另外一个文本组件text.rich
 class textRichWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,7 +97,11 @@ class textRichWidget extends StatelessWidget {
                   color: Colors.purple,
                   fontWeight: FontWeight.bold)),
           TextSpan(
-              text: "苏轼", style: TextStyle(fontSize: 20, color: Colors.blue,fontWeight: FontWeight.bold)),
+              text: "苏轼",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold)),
           TextSpan(
               text: "\n莫听穿林打叶声，何妨吟啸且徐行。\n竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。",
               style: TextStyle(fontSize: 20, color: Colors.green)),
@@ -43,7 +112,7 @@ class textRichWidget extends StatelessWidget {
   }
 }
 
-//text组件
+///text组件
 class textWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
