@@ -11,8 +11,57 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text("风月同天"),
       ),
-      body: AppContainer(),
+      body: textRichWidget(),
+//      body: textWidget(),
+//      body: AppContainer(),
     ));
+  }
+}
+
+//我们使用另外一个文本组件text.rich
+class textRichWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text.rich(
+        TextSpan(children: [
+          TextSpan(
+              text: "《定风波》",
+              style: TextStyle(
+                  fontSize: 40,
+                  color: Colors.purple,
+                  fontWeight: FontWeight.bold)),
+          TextSpan(
+              text: "苏轼", style: TextStyle(fontSize: 20, color: Colors.blue,fontWeight: FontWeight.bold)),
+          TextSpan(
+              text: "\n莫听穿林打叶声，何妨吟啸且徐行。\n竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。",
+              style: TextStyle(fontSize: 20, color: Colors.green)),
+        ]),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+//text组件
+class textWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Text(
+      "《定风波》 苏轼\n 莫听穿林打叶声，何妨吟啸且徐行。\n竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。",
+      style: TextStyle(fontSize: 22, color: Color(0xffff00fff)),
+      textAlign: TextAlign.center,
+
+//      overflow: TextOverflow.ellipsis,
+    ));
+    //style: TextStyle(fontSize: 25, color: Colors.red),
+    // style: TextStyle(color: Color(0xffff00ff), fontSize: 20),
+    // textAlign: TextAlign.center,
+    // maxLines: 2,
+    // overflow: TextOverflow.ellipsis,
+    //textScaleFactor: 2,
+    // overflow:,       ))
   }
 }
 
@@ -20,14 +69,13 @@ class MyApp extends StatelessWidget {
 
 class AppContainer extends StatefulWidget {
   @override
-  State createState() {
+  State<StatefulWidget> createState() {
     return StateContent();
   }
 }
 
 class StateContent extends State<AppContainer> {
   int num = 0;
-
 
 //我们所需要的交互的小部件全部在该类中实现
   @override
