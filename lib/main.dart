@@ -9,16 +9,70 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        title: Text("风月同天"),
+        title: Text("|山川异域  风月同天|"),
       ),
-      body: SelfDefButtonWidget(),
+      body: SelfDefImageLocalWidget(),
+//      body: SelfDefImageNetWidget(),
+//      body: SelfDefButtonWidget(),
 //      body: ButtonWidget(),
 //      body: textRichWidget(),
 //      body: textWidget(),
 //      body: AppContainer(),
     ));
   }
+
 }
+
+
+class SelfDefImageLocalWidget extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 400,
+        height: 400,
+        color: Colors.purple,
+        //给定网络图片
+        child: Image.asset("assets/image/tiger.jpg",
+          alignment: Alignment.center,
+          //是否在y轴上进行重复性的平铺图片,使其占满真个的container
+          //repeat: ImageRepeat.repeatY,
+          //fit: BoxFit.fill,//BoxFit.fill是一种以拉伸的方式占据整个屏幕的方式
+          fit: BoxFit.cover,//等比例的缩放,直到铺满整个的container
+        ),
+
+      ),
+    );
+  }
+}
+
+
+
+///我们自定义使用图片(网络图片)的自定义的组件
+class SelfDefImageNetWidget extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 300,
+        height: 300,
+        color: Colors.purple,
+        //给定网络图片
+        child: Image.network("http://img0.dili360.com/ga/M01/48/3C/wKgBy1kj49qAMVd7ADKmuZ9jug8377.tub.jpg",
+          alignment: Alignment.center,
+          //是否在y轴上进行重复性的平铺图片,使其占满真个的container
+          //repeat: ImageRepeat.repeatY,
+          //fit: BoxFit.fill,//BoxFit.fill是一种以拉伸的方式占据整个屏幕的方式
+          fit: BoxFit.cover,//等比例的缩放,直到铺满整个的container
+        ),
+
+      ),
+    );
+  }
+}
+
+
+
 
 ///下面是我们自定义的button组件
 class SelfDefButtonWidget extends StatelessWidget {
@@ -39,7 +93,7 @@ class SelfDefButtonWidget extends StatelessWidget {
               width: 10,
             ),
             Text(
-              "天地异域",
+              "山川异域",
               style: TextStyle(color: Colors.yellow, fontSize: 40),
             ),
           ],
