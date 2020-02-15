@@ -65,6 +65,12 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
                 username = value;
                 print("保存--姓名");
               },
+              validator: (val) {
+                if (val == null || val.length == 0) {
+                  return "姓名不能为空";
+                }
+                return null;
+              },
             ),
             TextFormField(
               obscureText: true,
@@ -74,6 +80,12 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
                 //保存输入的密码到类的成员变量中user_password
                 this.userpassword = value;
                 print("保存--密码");
+              },
+              validator: (val) {
+                if (val == null || val.length == 0) {
+                  return "密码不能为空";
+                }
+                return null;
               },
             ),
 
@@ -94,11 +106,15 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
                   style: (TextStyle(color: Colors.yellowAccent, fontSize: 25)),
                 ),
                 onPressed: () {
+                  //先验证输入数据的合法性
+                  var res = this.gk.currentState.validate();
                   //通过globalkey来获取form表单对应的state对象,从而可以获取实时的状态管理
-                  this.gk.currentState.save();
-                  print("数据提交");
-                  //把上面的两个输入框的姓名与密码数据保存到类的成员变量中之后,我们就可以进行输出了.
-                  print("姓名:${this.username}~~~密码:${this.userpassword}");
+                  if (res) {
+                    this.gk.currentState.save();
+                    print("数据提交");
+                    //把上面的两个输入框的姓名与密码数据保存到类的成员变量中之后,我们就可以进行输出了.
+                    print("姓名:${this.username}~~~密码:${this.userpassword}");
+                  }
                 },
               ),
             ),
