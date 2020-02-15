@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text("|山川异域  风月同天|"),
       ),
-      body: TextFieldWidget(),
+      body: LoginFormWidget(),
+//      body: TextFieldWidget(),
 //      body: RoundCornerImageWidget(),
 //      body: HomeContent(),
 //      body: RoundCornerWidget(),
@@ -25,6 +26,86 @@ class MyApp extends StatelessWidget {
 //      body: textWidget(),
 //      body: AppContainer(),
     ));
+  }
+}
+
+//下面我们来练习表单登录
+
+class LoginFormWidget extends StatefulWidget {
+  @override
+  State createState() {
+    return LoginFormWidgetState();
+  }
+}
+
+//创建上面对应的state类
+class LoginFormWidgetState extends State<LoginFormWidget> {
+  //我们来定义两个变量用来保存输入的姓名和密码
+  String username;
+  String userpassword;
+
+  //定义一个globalkey,用来和form组件进行关联--通过form组件中的key属性,
+  // 从而实现对于整个form组件的状态的管理.
+  final gk = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Form(
+        key: gk,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(
+                  icon: Icon(Icons.person), labelText: "请输入姓名:"),
+              onSaved: (value) {
+                //保存输入的姓名到类的成员变量中user_name
+                username = value;
+                print("保存--姓名");
+              },
+            ),
+            TextFormField(
+              obscureText: true,
+              decoration:
+                  InputDecoration(icon: Icon(Icons.lock), labelText: "请输入密码:"),
+              onSaved: (value) {
+                //保存输入的密码到类的成员变量中user_password
+                this.userpassword = value;
+                print("保存--密码");
+              },
+            ),
+
+            //我们需要添加一个widget把密码输入框和按钮区隔开来
+            SizedBox(
+              height: 20,
+            ),
+
+            //添加button提交按钮
+            Container(
+              //设置按钮占据最大的宽度
+              width: double.maxFinite,
+              height: 40,
+              child: RaisedButton(
+                color: Colors.lightBlue,
+                child: Text(
+                  "提交",
+                  style: (TextStyle(color: Colors.yellowAccent, fontSize: 25)),
+                ),
+                onPressed: () {
+                  //通过globalkey来获取form表单对应的state对象,从而可以获取实时的状态管理
+                  this.gk.currentState.save();
+                  print("数据提交");
+                  //把上面的两个输入框的姓名与密码数据保存到类的成员变量中之后,我们就可以进行输出了.
+                  print("姓名:${this.username}~~~密码:${this.userpassword}");
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -48,7 +129,9 @@ class TextFieldWidgetState extends State<TextFieldWidget> {
 //设置文本框中默认的值
     tc.text = "我本疏狂";
 //我们为控制器添加监听方法,以便在状态发生改变的时候,回调其中的回调方法.
-    tc.addListener((){print("===${tc.text}===");});
+    tc.addListener(() {
+      print("===${tc.text}===");
+    });
   }
 
   @override
