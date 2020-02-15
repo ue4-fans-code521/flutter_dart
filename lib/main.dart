@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
       appBar: AppBar(
         title: Text("|山川异域  风月同天|"),
       ),
-      body: RoundCornerImageWidget(),
+      body: TextFieldWidget(),
+//      body: RoundCornerImageWidget(),
 //      body: HomeContent(),
 //      body: RoundCornerWidget(),
 //      body: ClipOvalWidget(),
@@ -27,6 +28,53 @@ class MyApp extends StatelessWidget {
   }
 }
 
+///下面我们来实现表单组件中的文本框
+class TextFieldWidget extends StatefulWidget {
+  @override
+  State createState() {
+    return TextFieldWidgetState();
+  }
+}
+
+class TextFieldWidgetState extends State<TextFieldWidget> {
+//我们在此定义一个文本控制器,把文本的变动交由TextEditingController进行管理
+  final tc = TextEditingController();
+
+//我们还需要对于onInit进行重写
+  @override
+  void initState() {
+// TODO: implement initState
+    super.initState();
+//设置文本框中默认的值
+    tc.text = "我本疏狂";
+//我们为控制器添加监听方法,以便在状态发生改变的时候,回调其中的回调方法.
+    tc.addListener((){print("===${tc.text}===");});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+//        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+                labelText: "注册信息",
+                icon: Icon(Icons.people),
+                hintText: "请输入用户名:",
+                border: OutlineInputBorder(borderSide: BorderSide(width: 5)),
+                filled: true,
+                fillColor: Colors.green),
+            onChanged: (value) => print("实时更新:$value"),
+            onSubmitted: (value) => print("提交数据:$value"),
+            controller: tc,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 ///圆角图片的设置---使用cliprect实现
 ///注意:这里是使用的ClipRRect √ ----- 而不是ClipRect ×
